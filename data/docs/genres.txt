@@ -1,0 +1,35 @@
+[pop]
+Pop music is built for broad appeal. It features catchy hooks, polished production, and strong verse-chorus structures. Pop songs typically sit in the 100-130 BPM range with high valence and danceability. Pop is ideal for social settings, workouts, and upbeat playlists. The genre prioritizes emotional relatability and immediate melody recognition.
+
+[lofi]
+Lo-fi (low fidelity) music deliberately uses imperfections — tape hiss, vinyl crackle, ambient background noise — to create warmth and nostalgia. Lofi beats are popular for studying and relaxation because the predictable, low-stimulation sound texture supports sustained focus. Tempos are typically slow (60-90 BPM), energy is low to medium, and acousticness is high.
+
+[rock]
+Rock music is defined by guitar-driven arrangements, driving rhythms, and high energy. It spans a wide emotional range from anthemic and uplifting to intense and raw. Rock songs often feature prominent percussion and electric instruments. Energy levels tend to be high (0.7-1.0) and danceability is moderate. Rock suits high-energy workouts, intense focus sessions, or emotional releases.
+
+[electronic]
+Electronic music is produced entirely through synthesizers, drum machines, and digital audio workstations. It encompasses a vast range of tempos and moods — from ambient drone (low energy, high acousticness) to euphoric dance (high energy, high danceability). Electronic music rewards listeners looking for immersive, textured soundscapes.
+
+[rap]
+Rap and hip-hop center on rhythmic vocal delivery over beat-driven production. Energy varies widely from aggressive high-BPM tracks to smooth, slow-tempo storytelling. Rap is culturally expressive and often lyrically complex. Danceability is typically high. Moods span from introspective and melancholy to bold and confrontational.
+
+[jazz]
+Jazz is characterized by improvisation, swing rhythms, and complex chord progressions. Acoustic instruments dominate — piano, upright bass, trumpet, saxophone. Jazz can be lively and upbeat (swing, bebop) or slow and contemplative (cool jazz, ballads). Acousticness is typically high. Jazz suits relaxed social settings, late-night listening, and background study music.
+
+[classical]
+Classical music spans centuries of composed orchestral, chamber, and solo instrumental works. It is predominantly acoustic, highly dynamic, and structurally complex. Energy ranges from gentle and peaceful (nocturnes, adagios) to powerful and intense (symphonies, concertos). Classical music is often used for focused study, meditation, and emotional depth.
+
+[indie pop]
+Indie pop blends the accessibility of pop songwriting with the lo-fi aesthetics and emotional introspection of independent music. Production is often warm and organic, with acoustic and electric elements mixed. Energy is moderate. Indie pop appeals to listeners who want melody without the sheen of mainstream pop.
+
+[synthwave]
+Synthwave is a retro-futurist electronic genre inspired by 1980s film soundtracks and video games. It features lush analog synthesizers, driving bass lines, and dramatic builds. Energy is medium-to-high. The mood often oscillates between nostalgic melancholy and euphoric uplift. Great for night drives, late-night work sessions, and cinematic listening.
+
+[ambient]
+Ambient music prioritizes texture, atmosphere, and space over traditional melody and rhythm. Tempos are very slow or absent. Energy is minimal. The genre creates immersive soundscapes designed for meditation, sleep, or deep focus. Acousticness varies — some ambient music is purely electronic, other forms use piano or strings.
+
+[metal]
+Metal music is the most extreme end of the rock spectrum — extremely high energy (0.85-1.0), fast tempos, heavily distorted guitars, and aggressive vocals. Sub-genres range from melodic power metal to raw death metal. Metal is for intense emotional release, peak physical effort, or listeners who demand maximum sonic power.
+
+[country]
+Country music combines folk storytelling traditions with guitar, pedal steel, and fiddle. It is predominantly acoustic and melodic, with tempos ranging from slow ballads to fast-paced honky-tonk. Themes cover love, loss, landscape, and community. Danceability is moderate to high. Country is well-suited for relaxed social settings and emotional storytelling.

@@ -1,0 +1,32 @@
+[happy]
+Happy music is uplifting, bright, and emotionally positive. It features major keys, fast tempos, and high valence scores. Listeners seeking happy music want an immediate emotional lift — ideal for morning routines, social gatherings, and post-workout cool-downs. Instruments tend to be bright and forward in the mix.
+
+[chill]
+Chill music is relaxed, understated, and low-stimulation. It is designed for passive listening — studying, unwinding, or background ambiance. Energy is low to medium, tempo is slow, and production is often warm and slightly lo-fi. Chill music does not demand attention; it supports whatever the listener is doing.
+
+[intense]
+Intense music creates a sense of urgency, tension, and heightened emotional or physical arousal. High energy (0.7-1.0), fast tempos, and aggressive production elements dominate. Intense music is suited for high-stakes activities: competitive sports, hard workouts, creative sprints, or dramatic film scoring.
+
+[romantic]
+Romantic music evokes intimacy, warmth, and emotional tenderness. It typically features slow tempos, lush harmonies, soft dynamics, and expressive melodies. Valence may be high (joyful love) or slightly lower (longing, nostalgia). Acoustic instruments and close-mic vocal production are common. Suited for quiet evenings, dates, and introspective moments.
+
+[peaceful]
+Peaceful music minimizes stimulation and invites stillness. Tempos are very slow, dynamics are soft, and arrangements are sparse. Energy levels are typically below 0.35. This mood is closely associated with classical adagios, ambient soundscapes, and acoustic fingerpicking. Peaceful music promotes rest, meditation, and mental recovery.
+
+[euphoric]
+Euphoric music is characterized by emotional peaks, soaring melodies, and an overwhelming sense of joy or triumph. Common in electronic dance music and film scores at climactic moments. Valence is very high, energy surges, and production often builds through layers before releasing into a cathartic drop or crescendo.
+
+[moody]
+Moody music occupies an ambiguous emotional space — introspective, atmospheric, and slightly shadowed. It is neither explicitly sad nor happy. Synthwave, post-rock, and cinematic scores often occupy this space. Tempos are moderate, dynamics shift unpredictably, and the listener is invited to project their own emotional state onto the music.
+
+[melancholy]
+Melancholy music dwells in sadness, longing, or nostalgia without becoming despairing. It is emotionally rich and cathartic — many listeners seek it to process difficult emotions. Minor keys, slow tempos, and understated production are typical. Acoustic instruments and restrained vocals are common. Valence is low but the emotional experience is often described as beautiful.
+
+[raging]
+Raging music expresses raw, unfiltered aggression and frustration. It is the most intense end of the mood spectrum. Distorted guitars, shouted vocals, blast-beat drumming, and relentless energy define this mood. Metal and hardcore punk are the primary genres. Listeners use raging music for cathartic emotional release or extreme physical exertion.
+
+[energetic]
+Energetic music is high-tempo, dynamic, and physically activating. Unlike intense music (which implies tension), energetic music is more celebratory and fun. Dance music, upbeat pop, and fast-paced hip-hop occupy this mood. High BPM, prominent percussion, and forward-driving production push the listener into motion.
+
+[hateful]
+Hateful or confrontational music uses aggressive lyrical content and delivery to express contempt or defiance. This is a niche mood most common in certain subgenres of rap and metal. The emotional function is catharsis and empowerment for listeners experiencing conflict or frustration. Production is raw and unpolished by design.

@@ -1,315 +1,178 @@
-# 🎵 Music Recommender Simulation
+The original project was the music recommendation system from Module 3. The original goals and capabilities were to recommend music to people using simple RAG and hard-coded rules.
 
-Notes:
+# RecOrded
 
-collab filtering - based on user-item interaction patterns (maybe, like behavior pattern based?); based on behavioral signal
-
-content-based filtering - based on item characteristics and how well they match user tastes. (so maybe like, attribute-based); for new items and better understand of items
-
-User interaction data
-
-explicit feedback: likes, dislikes, ratings, favorites, saved songs/videos
-implicit feedback: plays, skips, replays, watch time, completion rate, dwell time
-playlist actions: adding/removing tracks, playlist follows, playlist creation
-search history and clicks
-Item metadata
-
-content tags: genre, artist, album, category
-attributes: tempo, mood, key, duration, energy, acousticness
-semantic/text data: lyrics, descriptions, titles, transcripts, tags
-Context data
-
-time: hour of day, day of week, season
-device: phone, desktop, smart speaker
-location and language
-session state: current queue, recent history, how long user has been active
-Social/popularity signals
-
-trending items, charts, popularity scores
-what similar users are listening to
-social shares, follows, collaborative playlists
-Derived or inferred features
-
-user taste profile: preferred genres, artists, moods
-item similarity scores
-sequence patterns: next-item predictions, transitions
-These systems combine many of those data types to decide “what should be recommended next.”
-
-valence - numeric measure of how happy/positive a track feels. Lower = more dark and sad.
-Lower acousticness = more electronic feel
-
-## Project Summary
-
-In this project you will build and explain a small music recommender system.
-
-Your goal is to:
-
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
+A music recommendation engine that scores songs against a user's taste profile and uses a built-in **reliability layer** to measure its own confidence and adapt when results are weak. Optionally accepts natural language input via a HuggingFace zero-shot classification model that converts free text into a structured user profile. The goal is to get the music RECords in ORDer from most to least recommended based on user preferences. This project allows users to explore and discover new music without being overwhelmed by the myriad variety of songs out there.
 
 ---
 
-## How The System Works
+## Architecture Overview
 
-Explain your design in plain language.
+The diagram shows the end-to-end flow of the music recommendation system:
 
-In summary, the system will compare songs against the user's preferences and recommend songs that are most similar. Songs that more closely match the preferences have a higher score and thus, are more likely to be recommended.
-
-Some prompts to answer:
-
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-
-  Each Song is classified by the mood, energy, tempo, valence, danceability, and acousticness as I believe that these traits would reflect the "vibe" of a song and thus, a person's taste in music.
-
-- What information does your `UserProfile` store
-
-The `UserProfile` stores user information such as username, age, gender, preferences (high energy, medium-high danceability, low acousticness), favorite artist, favorite song, etc.
-
-- How does your `Recommender` compute a score for each song
-The `Recommender` would compute a score for each song by checking the song against the preferences stated in the user profile (i.e. do a distance calculation between the attribute of the song and the preference stated)
-   
-Preference levels (on a sliding scale):
-- No = 0
-- Very Low = 0.05
-- Low = 0.20
-- Medium-Low = 0.35
-- Medium = 0.5
-- Medium-High = 0.65
-- High = 0.80
-- Very High = 1.0
-
-- How do you choose which songs to recommend
-  
-The recommended songs would be the songs with the smallest distance from the preferences after the individual distance from each preference has been aggregated (either by sum or mean pooling).
-
-You can include a simple diagram or bullet list if helpful.
-
+1. User input is classified — if it's free text, it goes through the NLPProfileParser to extract a structured profile; structured input skips that step.
+2. The profile is handed to the RecommenderAgent, which runs several internal steps: analyzing the profile, planning a strategy, scoring candidates, running RAG retrieval against a local document store (data/docs), checking confidence, assembling an explanation, and applying fallback logic if needed.
+3. The agent's core scoring is a distinct sub-component that feeds back into the quality check.
+4. The final output is a RecommendationResult surfaced to the user or CLI.
+5. Unit tests independently validate the core scoring, quality check, and fallback logic.
 ---
 
-## Getting Started
+## Setup Instructions
 
-### Setup
+### 1. Clone and enter the repo
+```bash
+git clone <repo-url>
+cd applied-ai-system-project
+```
 
-1. Create a virtual environment (optional but recommended):
-
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate      # Mac or Linux
-   .venv\Scripts\activate         # Windows
-
-2. Install dependencies
-
+### 2. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Run the app:
+> `transformers` and `torch` are required for the NLP input mode. On first run, `facebook/bart-large-mnli` (~1.6 GB) will be downloaded and cached automatically by HuggingFace.
 
+### 3. Run with preset profiles (no model download required)
 ```bash
-python -m src.main
+python src/main.py
 ```
 
-### Running Tests
-
-Run the starter tests with:
-
+### 4. Run in natural language input mode
 ```bash
-pytest
+python src/main.py --nlp
+```
+Type a description at the prompt, e.g. `upbeat pop for a workout`, and the system will classify it into a profile and recommend songs.
+
+### 5. Run the test suite
+```bash
+pytest tests/test_recommender.py -v
 ```
 
-You can add more tests in `tests/test_recommender.py`.
+---
+
+## Sample Interactions
+
+### Example 1 — Preset profile: "starter" (high-confidence result)
+
+**Input:**
+```
+genre=pop, mood=happy, energy=0.8, acoustic=False
+```
+
+**Output:**
+```
+Confidence: 0.81 — strong matches found.
+Top recommendations:
+  1. Sunrise City by Neon Echo         [pop / happy / energy 0.82]
+  2. Gym Hero by Max Pulse             [pop / intense / energy 0.93]
+  3. Rooftop Lights by Indigo Parade   [indie pop / happy / energy 0.76]
+  4. Storm Runner by Voltline          [rock / intense / energy 0.91]
+  5. Night Drive Loop by Neon Echo     [synthwave / moody / energy 0.75]
+```
+
+The top result matches on genre, mood, and energy — confidence is high (0.81), no fallback needed.
 
 ---
 
-## Experiments You Tried
+### Example 2 — Preset profile: "acoustic_dance_conflict" (contradictory preferences)
 
-Use this section to document the experiments you ran. For example:
+**Input:**
+```
+genre=electronic, mood=happy, energy=0.15, acoustic=True, danceability=0.95
+```
 
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+**Output:**
+```
+Confidence: 0.80 — strong matches found.
+Top recommendations:
+  1. Library Rain by Paper Lanterns      [lofi / chill / energy 0.35]
+  2. Spacewalk Thoughts by Orbit Bloom   [ambient / chill / energy 0.28]
+  3. Moonlight Sonata by Ludwig Echo     [classical / peaceful / energy 0.20]
+  4. Neon Pulse by Synth Master          [electronic / euphoric / energy 0.88]
+  5. Sunrise City by Neon Echo           [pop / happy / energy 0.82]
+```
 
-When I changed weights, some songs changed positions in ranking, but the list remained mostly the same. I added edge cases and the model was unable to react very well to them as it is rigid.
-
----
-
-## Limitations and Risks
-
-Summarize some limitations of your recommender.
-
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
-
-Some limitations is that it does not know and account for nuance. It is static and looks for exact matches at times, which can limit the songs that are recommended as some of the same songs get recommended across different profiles.
+Despite the contradictory inputs (acoustic preference + very high danceability), the system does not crash. Low energy + acoustic preference pulls results toward lofi/ambient. The system produces the best available match and reports confidence.
 
 ---
 
-## Reflection
+### Example 3 — Adaptive fallback (low confidence triggers relaxed scoring)
 
-Read and complete `model_card.md`:
+When a user profile matches nothing specifically in the catalog — all songs score similarly — the reliability layer intervenes automatically.
 
-[**Model Card**](model_card.md)
+**Scenario:** catalog of 7 identical jazz/chill songs, user asks for jazz/chill/energy=0.5 (no song stands out).
 
-Write 1 to 2 paragraphs here about what you learned:
+**Output:**
+```
+Low confidence (0.00) — your preferences are uncommon in this catalog.
+Scoring tolerances were relaxed to surface better matches. [FALLBACK: tolerances relaxed]
+Top recommendations:
+  1. Song 1 by Artist  [jazz / chill / energy 0.50]
+  2. Song 2 by Artist  [jazz / chill / energy 0.50]
+  3. Song 3 by Artist  [jazz / chill / energy 0.50]
+```
 
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
-  
-I learned that recommenders turn data into predictions by scoring the data against the standard given, the user's preferences in this case, and adjusting the scores based on the weights given or learned.
-Furthermore, bias can show up as some systems are rigid and account for only a few possibilities. With that, they are biased towards those cases and ignoring whatever they cannot account for. In addition, bias can happen if the training data is imbalanced in favor of one class.
-
-
----
-
-## 7. `model_card_template.md`
-
-Combines reflection and model card framing from the Module 3 guidance. :contentReference[oaicite:2]{index=2}  
-
-```markdown
-# 🎧 Model Card - Music Recommender Simulation
-
-## 1. Model Name
-
-Give your recommender a name, for example:
-
-> SongRecs 1.0
+The system reports why results may be weak rather than silently returning low-quality recommendations.
 
 ---
 
-## 2. Intended Use
+### Example 4 — Natural language input (NLP mode)
 
-- What is this system trying to do
-- Who is it for
+**Input (typed at prompt):**
+```
+something chill and acoustic for studying, not too energetic
+```
 
-Example:
+**Parsed profile:**
+```
+genre=lofi, mood=chill, energy=0.20, acoustic=True
+```
 
-> This model suggests 3 to 5 songs from a small catalog based on a user's preferred genre, mood, and energy level. It is for classroom exploration only, not for real users.
+**Output:**
+```
+Confidence: 0.78 — strong matches found.
+Top recommendations:
+  1. Library Rain by Paper Lanterns      [lofi / chill / energy 0.35]
+  2. Midnight Coding by LoRoom           [lofi / chill / energy 0.42]
+  3. Spacewalk Thoughts by Orbit Bloom   [ambient / chill / energy 0.28]
+  ...
+```
 
-The system is trying to recommend songs of a similar mood, energy, danceability, based on the preferences stated in the user's profile. It is for people who want to discover new songs that they might like.
----
-
-## 3. How It Works (Short Explanation)
-
-Describe your scoring logic in plain language.
-
-- What features of each song does it consider
-- What information about the user does it use
-- How does it turn those into a number
-
-Try to avoid code in this section, treat it like an explanation to a non programmer.
-
-The recommender considers genre, mood, energy, danceability, and acousticness -- how non-electronic is the music.
-It compares these traits against the preferences stated in the user profile, like favorite genre, target energy level, whether they like acoustic songs, etc.
-It scores the songs by awarding points for matches, multiplying by the weights, and adding them all up before ranking them from greatest to least and showing the top k songs.
----
-
-## 4. Data
-Describe your dataset.
-
-- How many songs are in `data/songs.csv`
-- Did you add or remove any songs
-- What kinds of genres or moods are represented
-- Whose taste does this data mostly reflect
-
-The dataset is small as it contains 20 songs of a mixture of a variety of genres and moods, from pop to classical as well as reggae, metal, and folk. The moods range from happy to raging, melancholic to romantic and dreamy, along with many other moods. Originally, there were 10 songs, but I had AI generate 10 more songs to expand the dataset.
-This data reflects a person who likes music and is open-minded about the different types of music out there. In other words, this suits someone who just wants to vibe along with music.
+The NLP parser correctly infers lofi genre, chill mood, low energy, and acoustic preference from the description — no manual profile construction needed.
 
 ---
 
-## 5. Strengths
+## Design Decisions
 
-Where does your recommender work well
+### Why rule-based scoring with an integrated reliability layer, rather than a pure ML model?
 
-You can think about:
-- Situations where the top results "felt right"
-- Particular user profiles it served well
-- Simplicity or transparency benefits
+The catalog has only 20 songs. Training or fine-tuning a collaborative filtering or neural model on 20 data points would overfit immediately as the dataset is too small. Rule-based weighted scoring is transparent, debuggable, and appropriate for the data size. The reliability layer is the more interesting engineering choice: rather than silently returning whatever scores come out, the system measures its own output distribution and changes behavior when confidence is low.
 
-The recommender does work well in that it is not sensitive to changes in weights. The explanations are clear and I can see how much each attribute contributed to the score. It works well in happy cases as the mood and/or energy matches.
----
+**Trade-off:** The confidence threshold (0.35) and relaxed tolerances (+/-0.40) are arbitrarily chosen. A larger catalog would allow for a more robust set of data where hyperparameters can be tuned with more data-driven methods.
 
-## 6. Limitations and Bias
-Where does your recommender struggle
+### Why `facebook/bart-large-mnli` for the NLP parser?
 
-Some prompts:
-- Does it ignore some genres or moods
-- Does it treat all users as if they have the same taste shape
-- Is it biased toward high energy or one genre by default
-- How could this be unfair if used in a real product
+Zero-shot classification with an NLI model requires no labeled training data for our specific task — the model was pre-trained to understand entailment across many domains. We supply our label sets (genres, moods, energy levels) and it generalizes without any task-specific fine-tuning.
 
-The recommender struggled with edge cases, where mood and energy, among other attributes conflict with one another. Therefore, the recommendations in those cases do not make sense. It would not match what people would intuitively look for when making recommendations, given those attributes.
-Furthermore, it keeps recommending the same songs in some of the profiles, like "Sunrise City". Therefore, it would be unfair if used in a real product as some songs would get unfairly boosted, while others get ignored, even if the preferences match more closely with the user's.
----
+**Trade-off:** The model is ~1.6 GB and adds latency on first use. A production system would swap in a smaller distilled model (e.g., `typeform/distilbert-base-uncased-mnli`) or cache parsed profiles to avoid repeated inference.
 
-## 7. Evaluation
+### Why expose `RecommendationResult` instead of a plain list?
 
-How did you check your system
+Returning a plain `List[Song]` hides quality information from the caller. By returning a structured result with `confidence`, `used_fallback`, and `quality_note`, every consumer — CLI, UI, test — can make an informed decision about how much to trust the output. This makes the reliability system observable rather than invisible.
 
-Examples:
-- You tried multiple user profiles and wrote down whether the results matched your expectations
-- You compared your simulation to what a real app like Spotify or YouTube tends to recommend
-- You wrote tests for your scoring logic
-
-You do not need a numeric metric, but if you used one, explain what it measures.
-
-I checked the functionality of the system by using multiple user profiles and seeing how it behaves in edge cases, or ambiguous situations (e.g. intense, but low energy like Kendrick's diss tracks in 2024. The low energy is likely to favor songs that are more calm and pleasant, rather than intense)
-
----
-
-## 8. Future Work
-
-If you had more time, how would you improve this recommender
-
-Examples:
-
-- Add support for multiple users and "group vibe" recommendations
-- Balance diversity of songs instead of always picking the closest match
-- Use more features, like tempo ranges or lyric themes
-
-If I had more time, I would add in more features. Perhaps I could put in a model that learns the user's preferences through behavior (interaction with the app), and adapt future recommendations and weights accordingly. That way, the recommender is more dynamic.
-
----
-
-## 9. Personal Reflection
-A few sentences about what you learned:
-
-- What surprised you about how your system behaved
-I'm surprised that even after changing weights, the songs recommended are mostly similar.
-
-- How did building this change how you think about real music recommenders
-Real world recommenders are more complex than I thought, especially when it comes to adapting to user preferences while also navigating through ambiguity as some preferences can be contradicting, or behavior can be different than stated preference.
-
-- Where do you think human judgment still matters, even if the model seems "smart"
-Human judgment still matters when looking at ambiguous situations or situations that require intuition and feeling.
+### Testing Summary
+Few shot functionality did not work very well and therefore had to be scrapped because the models used gave very generic answers. Perhaps I needed to fine-tune a model in order to get better results. However, fine-tuning a model can be time-consuming.
 
 
-## Output
-![alt text](image.png)
-<<<<<<< HEAD
+### Reflection
+This taught me that AI needs a lot of structure and guidance to work effectively and efficiently. Even with AI, there still needs to be a lot of thought put into each design decision in order for the app to better achieve its purpose. Although there are less biases now that the dataset is slightly larger, there will still be biases. The system is still limited by the small dataset. The AI does have the potential to be misused now that a language model is involved in some of the functionalities. This could happen if someone launches a prompt injection attack. In order to prevent those from happening, I should put guardrails in place to guide and restrict the model's behavior.
 
-### Results of Different Profiles
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-3.png)
-![alt text](image-4.png)
+### Testing and Reliability
 
-The majority of the music recommendations do not make sense as they do not account for the edge cases. In fact, the "low_energy_hateful" profile was designed with some of Kendrick Lamar's songs in mind, for when someone wants to vibe with the diabolical pettiness and hate that he has for Drake. Instead of recommending songs with a more negative mood or low energy, most of the recommendations had high energy and/or a more positive mood (peaceful/happy).
-### After changing weights of energy and genre
+- I used unit tests with 15 pytest cases covering confidence math, fallback behavior, adversarial profiles, and output structure.
+- The `quality_note` field surfaces confidence information directly to the user (me) so a human (also me) can decide whether to trust the results. This helps me to refine the project even further during the process of development.
+- The AI struggled a lot when context was missing as it put in very generic answers, some of which did not relate at all to the dataset.
 
-![alt text](image-5.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
 
-For the most part, the system is not very sensitive to these changes as the most of the same songs were recommended in the same order, most of the time.
-
+### What this project says about me as an AI engineer:
+It shows that I am able to think through a problem systematically and be able to iterate and improve upon an existing solution while making use of AI to speed up my workflow.

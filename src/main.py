@@ -1,84 +1,139 @@
 """
-Command line runner for the Music Recommender Simulation.
+Command line runner — demonstrates all four system features.
 
-This file helps you quickly run and test your recommender.
-
-You will implement the functions in recommender.py:
-- load_songs
-- score_song
-- recommend_songs
+Modes
+-----
+(default)   Run preset profiles through the agent + show reasoning trace
+--nlp       Accept natural language input and run through agent pipeline
+--rag-demo  Show RAG retrieval results for sample queries
+--fast      Skip model-loading steps (uses plain Recommender only)
 """
 
-from recommender import load_songs, recommend_songs
+import sys
+import os
+import argparse
+
+sys.path.insert(0, os.path.dirname(__file__))
+
+from recommender import load_songs, Recommender, Song, UserProfile
+from rag import build_default_store
+from agent import RecommenderAgent, print_agent_trace
+
+BASE_DIR   = os.path.join(os.path.dirname(__file__), "..")
+SONGS_PATH = os.path.join(BASE_DIR, "data", "songs.csv")
+DOCS_DIR   = os.path.join(BASE_DIR, "data", "docs")
+
+PRESET_PROFILES = [
+    {
+        "name": "starter",
+        "user": UserProfile(
+            favorite_genre="pop", favorite_mood="happy",
+            target_energy=0.8, likes_acoustic=False, target_danceability=0.7,
+        ),
+    },
+    {
+        "name": "high_energy_sad",
+        "user": UserProfile(
+            favorite_genre="pop", favorite_mood="sad",
+            target_energy=0.9, likes_acoustic=False, target_danceability=0.2,
+        ),
+    },
+    {
+        "name": "acoustic_dance_conflict",
+        "user": UserProfile(
+            favorite_genre="electronic", favorite_mood="happy",
+            target_energy=0.15, likes_acoustic=True, target_danceability=0.95,
+        ),
+    },
+    {
+        "name": "low_energy_hateful",
+        "user": UserProfile(
+            favorite_genre="rap", favorite_mood="hateful",
+            target_energy=0.0, likes_acoustic=False,
+        ),
+    },
+]
+
+
+def run_preset_profiles(agent: RecommenderAgent, songs: list) -> None:
+    print("\n=== PRESET PROFILES — Agent + RAG Pipeline ===\n")
+    for variant in PRESET_PROFILES:
+        print(f"\n{'='*60}\nProfile: {variant['name']}")
+        u = variant["user"]
+        print(f"  genre={u.favorite_genre}, mood={u.favorite_mood}, "
+              f"energy={u.target_energy}, acoustic={u.likes_acoustic}")
+        result = agent.run(u, songs, k=5)
+        print_agent_trace(result)
+
+
+def run_nlp_mode(agent: RecommenderAgent, songs: list) -> None:
+    from nlp_parser import NLPProfileParser
+    parser = NLPProfileParser()
+
+    print("\nNatural language mode — describe the music you want.")
+    print("Type 'quit' to exit.\n")
+
+    while True:
+        text = input("Your request: ").strip()
+        if text.lower() in ("quit", "exit", "q"):
+            break
+        if not text:
+            continue
+
+        user = parser.parse(text)
+        print(f"\nParsed: genre={user.favorite_genre}, mood={user.favorite_mood}, "
+              f"energy={user.target_energy:.2f}, acoustic={user.likes_acoustic}")
+
+        result = agent.run(user, songs, k=5)
+        print_agent_trace(result)
+
+
+def run_rag_demo(store) -> None:
+    print("\n=== RAG RETRIEVAL DEMO ===\n")
+    queries = [
+        "upbeat pop for a workout",
+        "something quiet and acoustic for studying",
+        "aggressive metal with extreme energy",
+        "nostalgic electronic night drive",
+    ]
+    for q in queries:
+        print(f"Query: '{q}'")
+        hits = store.retrieve(q, top_k=2)
+        for score, chunk in hits:
+            print(f"  [{score:.3f}] {chunk.label} ({chunk.source}) — {chunk.text[:100]}...")
+        print()
 
 
 def main() -> None:
-    """Run the music recommender simulation with a sample user profile."""
-    songs = load_songs("data/songs.csv") 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--nlp",      action="store_true")
+    parser.add_argument("--rag-demo", action="store_true")
+    parser.add_argument("--fast",     action="store_true", help="Skip model loading")
+    args = parser.parse_args()
 
-    # Starter example profile
-    starter_profile = {
-        "genre": "pop",
-        "mood": "happy",
-        "energy": 0.8,
-        "danceability": 0.7,
-        "likes_acoustic": False,
-    }
+    raw_songs = load_songs(SONGS_PATH)
+    songs = [Song(**s) for s in raw_songs]
+    recommender = Recommender(songs)
 
-    # Adversarial / edge-case user profiles designed to test scoring logic
-    adversarial_profiles = [
-        {
-            "name": "high_energy_sad",
-            "profile": {
-                "genre": "pop",
-                "mood": "sad",
-                "energy": 0.9,
-                "danceability": 0.2,
-                "likes_acoustic": False,
-            },
-        },
-        {
-            "name": "acoustic_dance_conflict",
-            "profile": {
-                "genre": "electronic",
-                "mood": "happy",
-                "energy": 0.15,
-                "danceability": 0.95,
-                "likes_acoustic": True,
-            },
-        },
-        {
-            "name": "low_energy_hateful",
-            "profile": {
-                "genre": "rap",
-                "mood": "hateful",
-                "energy": 0.0,
-                "danceability": 0.0,
-                "likes_acoustic": False,
-            },
-        },
-    ]
+    if args.fast:
+        # Plain recommender, no models
+        print("\n=== FAST MODE — plain Recommender (no models) ===")
+        for v in PRESET_PROFILES:
+            result = recommender.recommend(v["user"], k=3)
+            print(f"\n{v['name']}: {result.quality_note}")
+            for s in result.songs:
+                print(f"  {s.title} [{s.genre}/{s.mood}]")
+        return
 
-    all_profiles = [
-        {"name": "starter", "profile": starter_profile},
-        *adversarial_profiles,
-    ]
+    store = build_default_store(DOCS_DIR)
+    agent = RecommenderAgent(store=store)
 
-    for variant in all_profiles:
-        name = variant["name"]
-        user_prefs = variant["profile"]
-        print(f"\n=== Recommendations for profile: {name} ===")
-        recommendations = recommend_songs(user_prefs, songs, k=5)
-        for rec in recommendations:
-            song, score, explanation = rec
-            print(f"{song['title']} by {song['artist']} - Score: {score:.2f}")
-            print(f"  genre: {song['genre']}, mood: {song['mood']}, energy: {song['energy']:.2f}, danceability: {song['danceability']:.2f}, acousticness: {song['acousticness']:.2f}")
-            print(f"  Because: {explanation}")
-            print()
-
-        print("User profile:")
-        for key, value in user_prefs.items():
-            print(f"  {key}: {value}")
+    if args.rag_demo:
+        run_rag_demo(store)
+    elif args.nlp:
+        run_nlp_mode(agent, songs)
+    else:
+        run_preset_profiles(agent, songs)
 
 
 if __name__ == "__main__":

@@ -1,3 +1,7 @@
 pandas
 pytest
 streamlit
+transformers
+torch
+sentence-transformers
+sentencepiece

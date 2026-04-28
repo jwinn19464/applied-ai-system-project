@@ -1,0 +1,27 @@
+flowchart TD
+  A[User Input]
+  A --> B{Input type}
+  B -->|Structured profile| C[NLP parser skipped]
+  B -->|Free text| D[NLPProfileParser]
+  D --> C
+
+  C --> E[RecommenderAgent]
+  E --> E1[Profile analysis]
+  E --> E2[Strategy planning]
+  E --> E3[Candidate scoring]
+  E --> E4[Quality check / confidence]
+  E --> E5[RAG retrieval]
+  E --> E6[Explanation assembly]
+  E --> E7[Fallback Logic]
+
+  E3 --> F[Recommender core scoring]
+  F --> E4
+
+  E5 --> G[DocumentStore / data/docs]
+  E --> H[RecommendationResult]
+  H --> I[Output to user/CLI]
+
+  J[Unit Tests]
+  J -->|validates| F
+  J -->|validates| E4
+  J -->|validates| E7

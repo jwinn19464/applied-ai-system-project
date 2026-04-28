@@ -1,0 +1,11 @@
+Extra Feature(s):
+Fine-Tuned Model - model trained to adapt to user's tastes
+Reliability/Testing System
+
+Fully integrate into main app logic
+-change how system behaves/processes info
+
+Project must:
+Runs correctly and reproducibly: If someone follows your instructions, it should work.
+Includes logging or guardrails: Your code should track what it does and handle errors safely.
+Has clear setup steps: Someone else should be able to run it without guessing what to install.
