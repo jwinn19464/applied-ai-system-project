@@ -88,3 +88,9 @@ This taught me that AI needs a lot of structure and guidance to work effectively
 
 ### What this project says about me as an AI engineer:
 It shows that I am able to think through a problem systematically and be able to iterate and improve upon an existing solution while making use of AI to speed up my workflow.
+
+### Loom Video Links
+Whole System:
+https://www.loom.com/share/866aa8e790c84e018fc9b9302c032d2e
+Testing Suite (because original video cut off at 5 minutes):
+https://www.loom.com/share/e623ce6a80ee49f581820ac7a8c091b6

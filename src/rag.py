@@ -156,7 +156,7 @@ class DocumentStore:
         results = []
         for score, chunk in hits:
             song_id = self._parse_song_id(chunk.label)
-            if song_id is not None and chunk.source == source:
+            if song_id is not None and chunk.source == "song_metadata":
                 results.append((song_id, score, chunk))
         return results
 
@@ -202,11 +202,21 @@ def build_default_store(docs_dir: str) -> DocumentStore:
     store = DocumentStore()
     genres_path = os.path.join(docs_dir, "genres.txt")
     moods_path = os.path.join(docs_dir, "moods.txt")
-    metadata_path = os.path.join(docs_dir, "Music_Catalog_RAG_Metadata.txt")
+    metadata_candidates = [
+        "Enriched_Song_Metadata_RAG.txt",
+        "Music_Catalog_RAG_Metadata.txt",
+    ]
+
+    metadata_path = None
+    for filename in metadata_candidates:
+        candidate = os.path.join(docs_dir, filename)
+        if os.path.exists(candidate):
+            metadata_path = candidate
+            break
 
     n_genres = store.load_file(genres_path, source="genres")
     n_moods = store.load_file(moods_path, source="moods")
-    n_meta = store.load_song_metadata(metadata_path, source="song_metadata") if os.path.exists(metadata_path) else 0
+    n_meta = store.load_song_metadata(metadata_path, source="song_metadata") if metadata_path else 0
 
     print(
         f"DocumentStore ready: {n_genres} genre chunks + {n_moods} mood chunks "
