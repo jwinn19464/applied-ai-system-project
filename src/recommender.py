@@ -155,11 +155,11 @@ def load_songs(csv_path: str) -> List[Dict]:
     return songs
 
 DEFAULT_WEIGHTS = {
-    "genre": 0.25 / 2,
-    "mood": 0.20,
-    "energy": 0.20 * 2,
-    "danceability": 0.15,
-    "acousticness": 0.20,
+    "genre": 1.0,        # was 0.125
+    "mood": 0.8,         # was 0.20
+    "energy": 0.6,       # was 0.40
+    "danceability": 0.4, # was 0.15
+    "acousticness": 0.4, # was 0.20
 }
 
 
@@ -176,8 +176,8 @@ def score_song(user_prefs: Dict, song: Dict, custom_weights: Optional[Dict] = No
                         apply profile-specific scoring strategies.
     """
     relaxed = user_prefs.get("_relaxed", False)
-    energy_tolerance = 0.40 if relaxed else 0.20
-    dance_tolerance = 0.40 if relaxed else 0.20
+    energy_tolerance = 0.15 if relaxed else 0.10  # was 0.40/0.20
+    dance_tolerance = 0.15 if relaxed else 0.10   # was 0.40/0.20
 
     weights = {**DEFAULT_WEIGHTS, **(custom_weights or {})}
 

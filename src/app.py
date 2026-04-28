@@ -50,6 +50,40 @@ def get_explainer():
     from specialist import FewShotExplainer
     return FewShotExplainer()
 
+
+def format_genres(genre: str) -> str:
+    if not genre:
+        return ""
+    if "," in genre:
+        return ", ".join(g.strip() for g in genre.split(","))
+    if "/" in genre:
+        return ", ".join(g.strip() for g in genre.split("/"))
+    return genre
+
+
+def build_song_document(songs: list[Song]) -> str:
+    lines = [
+        "# Song Catalog",
+        "",
+        "Detailed song metadata for every track in the catalog.",
+        "",
+    ]
+    for song in songs:
+        lines.extend([
+            f"## {song.title} — {song.artist}",
+            "",
+            f"- **ID:** {song.id}",
+            f"- **Genres:** {format_genres(song.genre)}",
+            f"- **Mood:** {song.mood}",
+            f"- **Energy:** {song.energy:.2f}",
+            f"- **Tempo (BPM):** {song.tempo_bpm:.0f}",
+            f"- **Valence:** {song.valence:.2f}",
+            f"- **Danceability:** {song.danceability:.2f}",
+            f"- **Acousticness:** {song.acousticness:.2f}",
+            "",
+        ])
+    return "\n".join(lines)
+
 # ---------------------------------------------------------------------------
 # Page config
 # ---------------------------------------------------------------------------
@@ -58,8 +92,8 @@ st.set_page_config(page_title="Music Recommender AI", page_icon="🎵", layout="
 st.title("🎵 Music Recommender AI")
 st.caption("Agentic pipeline · RAG · Few-shot specialist · Reliability eval")
 
-tab_try, tab_eval = st.tabs(
-    ["🎯 Try It", "✅ Reliability"]
+tab_try, tab_library, tab_eval = st.tabs(
+    ["🎯 Try It", "📖 Song Library", "✅ Reliability"]
 )
 
 # ===========================================================================
@@ -198,6 +232,33 @@ with tab_try:
                         st.markdown(f"- Detail: {step.detail[:300]}")
         else:
             st.info("Set a profile on the left, choose a retrieval mode, and click **Recommend**.")
+
+with tab_library:
+    st.header("Song Library")
+    st.write(
+        "Browse the full song catalog and download a Markdown document containing metadata for every track. "
+        "This is useful when songs belong to multiple genres or when you want a complete catalog reference."
+    )
+    songs = get_songs()
+    document = build_song_document(songs)
+    st.download_button(
+        "Download song info document",
+        document,
+        file_name="song_catalog.md",
+        mime="text/markdown",
+    )
+
+    for song in songs:
+        with st.expander(f"{song.title} — {song.artist}"):
+            st.markdown(
+                f"**Genres:** {format_genres(song.genre)}  \n"
+                f"- **Mood:** {song.mood}  \n"
+                f"- **Energy:** {song.energy:.2f}  \n"
+                f"- **Tempo (BPM):** {song.tempo_bpm:.0f}  \n"
+                f"- **Valence:** {song.valence:.2f}  \n"
+                f"- **Danceability:** {song.danceability:.2f}  \n"
+                f"- **Acousticness:** {song.acousticness:.2f}"
+            )
 
 
 # ===========================================================================

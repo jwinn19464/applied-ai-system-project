@@ -47,99 +47,6 @@ Type a description at the prompt, e.g. `upbeat pop for a workout`, and the syste
 ```bash
 pytest tests/test_recommender.py -v
 ```
-
----
-
-## Sample Interactions
-
-### Example 1 — Preset profile: "starter" (high-confidence result)
-
-**Input:**
-```
-genre=pop, mood=happy, energy=0.8, acoustic=False
-```
-
-**Output:**
-```
-Confidence: 0.81 — strong matches found.
-Top recommendations:
-  1. Sunrise City by Neon Echo         [pop / happy / energy 0.82]
-  2. Gym Hero by Max Pulse             [pop / intense / energy 0.93]
-  3. Rooftop Lights by Indigo Parade   [indie pop / happy / energy 0.76]
-  4. Storm Runner by Voltline          [rock / intense / energy 0.91]
-  5. Night Drive Loop by Neon Echo     [synthwave / moody / energy 0.75]
-```
-
-The top result matches on genre, mood, and energy — confidence is high (0.81), no fallback needed.
-
----
-
-### Example 2 — Preset profile: "acoustic_dance_conflict" (contradictory preferences)
-
-**Input:**
-```
-genre=electronic, mood=happy, energy=0.15, acoustic=True, danceability=0.95
-```
-
-**Output:**
-```
-Confidence: 0.80 — strong matches found.
-Top recommendations:
-  1. Library Rain by Paper Lanterns      [lofi / chill / energy 0.35]
-  2. Spacewalk Thoughts by Orbit Bloom   [ambient / chill / energy 0.28]
-  3. Moonlight Sonata by Ludwig Echo     [classical / peaceful / energy 0.20]
-  4. Neon Pulse by Synth Master          [electronic / euphoric / energy 0.88]
-  5. Sunrise City by Neon Echo           [pop / happy / energy 0.82]
-```
-
-Despite the contradictory inputs (acoustic preference + very high danceability), the system does not crash. Low energy + acoustic preference pulls results toward lofi/ambient. The system produces the best available match and reports confidence.
-
----
-
-### Example 3 — Adaptive fallback (low confidence triggers relaxed scoring)
-
-When a user profile matches nothing specifically in the catalog — all songs score similarly — the reliability layer intervenes automatically.
-
-**Scenario:** catalog of 7 identical jazz/chill songs, user asks for jazz/chill/energy=0.5 (no song stands out).
-
-**Output:**
-```
-Low confidence (0.00) — your preferences are uncommon in this catalog.
-Scoring tolerances were relaxed to surface better matches. [FALLBACK: tolerances relaxed]
-Top recommendations:
-  1. Song 1 by Artist  [jazz / chill / energy 0.50]
-  2. Song 2 by Artist  [jazz / chill / energy 0.50]
-  3. Song 3 by Artist  [jazz / chill / energy 0.50]
-```
-
-The system reports why results may be weak rather than silently returning low-quality recommendations.
-
----
-
-### Example 4 — Natural language input (NLP mode)
-
-**Input (typed at prompt):**
-```
-something chill and acoustic for studying, not too energetic
-```
-
-**Parsed profile:**
-```
-genre=lofi, mood=chill, energy=0.20, acoustic=True
-```
-
-**Output:**
-```
-Confidence: 0.78 — strong matches found.
-Top recommendations:
-  1. Library Rain by Paper Lanterns      [lofi / chill / energy 0.35]
-  2. Midnight Coding by LoRoom           [lofi / chill / energy 0.42]
-  3. Spacewalk Thoughts by Orbit Bloom   [ambient / chill / energy 0.28]
-  ...
-```
-
-The NLP parser correctly infers lofi genre, chill mood, low energy, and acoustic preference from the description — no manual profile construction needed.
-
 ---
 
 ## Design Decisions
@@ -163,6 +70,8 @@ Returning a plain `List[Song]` hides quality information from the caller. By ret
 ### Testing Summary
 Few shot functionality did not work very well and therefore had to be scrapped because the models used gave very generic answers. Perhaps I needed to fine-tune a model in order to get better results. However, fine-tuning a model can be time-consuming.
 
+![alt text](image-2.png)
+A low confidence rating was given to the prediction. With that, I realized that I did not consider how a song can fall under multiple genres. To the end, I decided to try to fix the RAG function by using AI to create a document with more detailed information about the songs.
 
 ### Reflection
 This taught me that AI needs a lot of structure and guidance to work effectively and efficiently. Even with AI, there still needs to be a lot of thought put into each design decision in order for the app to better achieve its purpose. Although there are less biases now that the dataset is slightly larger, there will still be biases. The system is still limited by the small dataset. The AI does have the potential to be misused now that a language model is involved in some of the functionalities. This could happen if someone launches a prompt injection attack. In order to prevent those from happening, I should put guardrails in place to guide and restrict the model's behavior.
@@ -171,7 +80,7 @@ This taught me that AI needs a lot of structure and guidance to work effectively
 
 - I used unit tests with 15 pytest cases covering confidence math, fallback behavior, adversarial profiles, and output structure.
 - The `quality_note` field surfaces confidence information directly to the user (me) so a human (also me) can decide whether to trust the results. This helps me to refine the project even further during the process of development.
-- The AI struggled a lot when context was missing as it put in very generic answers, some of which did not relate at all to the dataset.
+- The AI struggled a lot when context was missing as it put in very generic answers, some of which did not relate at all to the dataset. Furthermore, when weights were low and tolerance ranges for energy and danceability were high, the models recommended songs with very low confidence (~0.14).
 
 
 ### What this project says about me as an AI engineer:
