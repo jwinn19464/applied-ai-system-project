@@ -73,6 +73,9 @@ Few shot functionality did not work very well and therefore had to be scrapped b
 ![alt text](image-2.png)
 A low confidence rating was given to the prediction. With that, I realized that I did not consider how a song can fall under multiple genres. To the end, I decided to try to fix the RAG function by using AI to create a document with more detailed information about the songs.
 
+![alt text](image-3.png)
+After doing so, the confidence level has increased.
+
 ### Reflection
 This taught me that AI needs a lot of structure and guidance to work effectively and efficiently. Even with AI, there still needs to be a lot of thought put into each design decision in order for the app to better achieve its purpose. Although there are less biases now that the dataset is slightly larger, there will still be biases. The system is still limited by the small dataset. The AI does have the potential to be misused now that a language model is involved in some of the functionalities. This could happen if someone launches a prompt injection attack. In order to prevent those from happening, I should put guardrails in place to guide and restrict the model's behavior.
 

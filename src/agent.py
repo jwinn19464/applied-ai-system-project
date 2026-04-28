@@ -108,6 +108,27 @@ class RecommenderAgent:
             detail=f"Top 3: {top3}",
         ))
 
+        # ── Step 3.5: RAG Re-ranking using song metadata ─────────────────────
+        if self._store is not None:
+            rag_query = self._build_rag_query(user)
+            metadata_hits = self._store.retrieve_song_metadata(rag_query, top_k=6)
+            if metadata_hits:
+                scored = self._apply_rag_song_boost(user, scored, top_k=6)
+                hit_summary = ", ".join(
+                    f"id={song_id}:{score:.2f}" for song_id, score, _ in metadata_hits
+                )
+                steps.append(AgentStep(
+                    name="RAG Re-ranking",
+                    decision="boosted candidates using song metadata matches",
+                    detail=f"metadata hits: {hit_summary}",
+                ))
+            else:
+                steps.append(AgentStep(
+                    name="RAG Re-ranking",
+                    decision="no song metadata matches found",
+                    detail="",
+                ))
+
         # ── Step 4: Quality Check ───────────────────────────────────────────
         all_scores = [sc for sc, _, _r in scored]
         confidence = _compute_confidence(all_scores)
@@ -216,6 +237,31 @@ class RecommenderAgent:
             results.append((score, song, reasons))
         results.sort(key=lambda x: x[0], reverse=True)
         return results
+
+    def _build_rag_query(self, user: UserProfile) -> str:
+        parts = [user.favorite_genre, user.favorite_mood]
+        if user.target_danceability is not None:
+            parts.append(f"danceability {user.target_danceability:.2f}")
+        parts.append(f"energy {user.target_energy:.2f}")
+        parts.append("acoustic" if user.likes_acoustic else "electronic")
+        return " ".join(p for p in parts if p)
+
+    def _apply_rag_song_boost(self, user: UserProfile, scored: List[Tuple], top_k: int = 6) -> List[Tuple]:
+        if self._store is None:
+            return scored
+
+        query = self._build_rag_query(user)
+        metadata_hits = self._store.retrieve_song_metadata(query, top_k=top_k)
+        if not metadata_hits:
+            return scored
+
+        song_boosts = {song_id: score for song_id, score, _ in metadata_hits}
+        boosted = []
+        for score, song, reasons in scored:
+            boost = song_boosts.get(song.id, 0.0) * 0.25
+            boosted.append((score + boost, song, reasons))
+        boosted.sort(key=lambda item: item[0], reverse=True)
+        return boosted
 
     def _profile_to_prefs(self, user: UserProfile) -> Dict:
         prefs = {

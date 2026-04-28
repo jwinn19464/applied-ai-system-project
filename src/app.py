@@ -125,7 +125,7 @@ with tab_try:
             index=0,
             help=(
                 "**No RAG** — agent scores songs using attribute weights only, no external knowledge.\n\n"
-                "**Simple RAG** — retrieves 1 document chunk to enrich the explanation.\n\n"
+                "**Simple RAG** — retrieves 1 document chunk to enrich the explanation and uses song metadata for better ranking.\n\n"
                 "**Enhanced RAG** — retrieves 3 chunks from multiple sources (genres + moods) for a richer explanation."
             ),
         )

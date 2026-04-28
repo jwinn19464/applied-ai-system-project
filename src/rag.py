@@ -73,6 +73,93 @@ class DocumentStore:
         self._recompute_embeddings()
         return added
 
+    def load_song_metadata(self, path: str, source: str = "song_metadata") -> int:
+        """
+        Parse a song metadata document and add one chunk per song.
+        Supports both the old and new metadata formats.
+        """
+        with open(path, encoding='utf-8') as f:
+            raw = f.read()
+
+        blocks = []
+        current = []
+        for line in raw.splitlines():
+            stripped = line.strip()
+            if not stripped:
+                continue
+            if stripped.startswith("SONG_ID:") and current:
+                blocks.append("\n".join(current))
+                current = [stripped]
+            elif stripped.startswith("SONG ID:") and current:
+                blocks.append("\n".join(current))
+                current = [stripped]
+            else:
+                current.append(stripped)
+        if current:
+            blocks.append("\n".join(current))
+
+        added = 0
+        for block in blocks:
+            meta = {}
+            for line in block.splitlines():
+                if ":" not in line:
+                    continue
+                key, value = line.split(":", 1)
+                meta[key.strip().upper()] = value.strip()
+
+            song_id = meta.get("SONG_ID") or meta.get("SONG ID")
+            if not song_id:
+                continue
+
+            title = meta.get("TITLE", "")
+            artist = meta.get("ARTIST", "")
+            genre = meta.get("PRIMARY GENRE") or meta.get("GENRE", "")
+            mood = meta.get("PRIMARY MOOD") or meta.get("MOOD", "")
+            additional = meta.get("ADDITIONAL GENRES") or meta.get("ADDITIONAL_GENRES", "")
+            description = meta.get("DETAILED DESCRIPTION", "")
+            nuance = meta.get("NUANCE/CONTEXT", "")
+            rag_note = meta.get("RAG CONTEXTUAL NOTE", "")
+            attributes = meta.get("TECHNICAL METRICS") or meta.get("ATTRIBUTES", "")
+
+            text_parts = [
+                title,
+                artist,
+                genre,
+                mood,
+                additional,
+                description,
+                nuance,
+                rag_note,
+                attributes,
+            ]
+            text = " ".join(part for part in text_parts if part).strip()
+            if not text:
+                continue
+
+            label = f"[song:{song_id}] {title}"
+            self._chunks.append(DocumentChunk(source=source, label=label, text=text))
+            added += 1
+
+        self._recompute_embeddings()
+        return added
+
+    def _parse_song_id(self, label: str) -> int | None:
+        if label.startswith("[song:"):
+            try:
+                return int(label.split("]", 1)[0][6:])
+            except ValueError:
+                return None
+        return None
+
+    def retrieve_song_metadata(self, query: str, top_k: int = 5) -> List[Tuple[int, float, DocumentChunk]]:
+        hits = self.retrieve(query, top_k=top_k)
+        results = []
+        for score, chunk in hits:
+            song_id = self._parse_song_id(chunk.label)
+            if song_id is not None and chunk.source == source:
+                results.append((song_id, score, chunk))
+        return results
+
     # ------------------------------------------------------------------
     # Retrieval
     # ------------------------------------------------------------------
@@ -109,13 +196,20 @@ class DocumentStore:
 
 def build_default_store(docs_dir: str) -> DocumentStore:
     """
-    Build and return a DocumentStore loaded with genres.txt and moods.txt
-    from the given docs directory.
+    Build and return a DocumentStore loaded with genres.txt, moods.txt,
+    and song metadata for richer RAG retrieval.
     """
     store = DocumentStore()
     genres_path = os.path.join(docs_dir, "genres.txt")
-    moods_path  = os.path.join(docs_dir, "moods.txt")
+    moods_path = os.path.join(docs_dir, "moods.txt")
+    metadata_path = os.path.join(docs_dir, "Music_Catalog_RAG_Metadata.txt")
+
     n_genres = store.load_file(genres_path, source="genres")
-    n_moods  = store.load_file(moods_path,  source="moods")
-    print(f"DocumentStore ready: {n_genres} genre chunks + {n_moods} mood chunks loaded.")
+    n_moods = store.load_file(moods_path, source="moods")
+    n_meta = store.load_song_metadata(metadata_path, source="song_metadata") if os.path.exists(metadata_path) else 0
+
+    print(
+        f"DocumentStore ready: {n_genres} genre chunks + {n_moods} mood chunks "
+        f"+ {n_meta} song metadata chunks loaded."
+    )
     return store

@@ -1,0 +1,346 @@
+MUSIC CATALOG ENRICHED METADATA FOR RAG SYSTEMS
+==================================================
+
+This document provides expanded descriptions, additional genres, and contextual
+notes for each song in the dataset. Use this file to populate your vector
+database for improved semantic search and retrieval.
+
+SONG ID: 1
+TITLE: Sunrise City
+ARTIST: Neon Echo
+PRIMARY GENRE: pop
+ADDITIONAL GENRES: Synth-pop, Electropop, Nu-disco
+PRIMARY MOOD: happy
+--------------------
+DETAILED DESCRIPTION: A high-energy modern synth-pop track that captures the feeling of a city waking up. It features shimmering oscillators, a punchy 4/4 electronic drum pattern, and bright melodic hooks.
+RAG CONTEXTUAL NOTE: Ideal for morning routines or high-energy creative work. The high valence and danceability make it a strong match for 'feel-good' playlists.
+TECHNICAL METRICS: Tempo: 118 BPM | Energy: 0.82 | Valence: 0.84 | Danceability: 0.79 | Acousticness: 0.18
+
+==================================================
+
+SONG ID: 2
+TITLE: Midnight Coding
+ARTIST: LoRoom
+PRIMARY GENRE: lofi
+ADDITIONAL GENRES: Chillhop, Study Beats, Minimalist Hip-Hop
+PRIMARY MOOD: chill
+--------------------
+DETAILED DESCRIPTION: Minimalist lofi hip-hop with a heavy emphasis on vinyl crackle and dampened percussion. The piano loop is hypnotic and repetitive, specifically mixed to sit in the background of a listener's cognitive field.
+RAG CONTEXTUAL NOTE: Optimized for deep work or late-night coding sessions. The high acousticness reflects the organic piano samples used.
+TECHNICAL METRICS: Tempo: 78 BPM | Energy: 0.42 | Valence: 0.56 | Danceability: 0.62 | Acousticness: 0.71
+
+==================================================
+
+SONG ID: 3
+TITLE: Storm Runner
+ARTIST: Voltline
+PRIMARY GENRE: rock
+ADDITIONAL GENRES: Alternative Rock, Hard Rock, Garage Rock
+PRIMARY MOOD: intense
+--------------------
+DETAILED DESCRIPTION: Aggressive alternative rock featuring overdriven guitar riffs and rapid-fire percussion. It conveys a sense of momentum and physical exertion through its high tempo and consistent energy levels.
+RAG CONTEXTUAL NOTE: Best suited for workout scenarios or high-intensity gaming. Its low acousticness and high energy define its 'raw' sound.
+TECHNICAL METRICS: Tempo: 152 BPM | Energy: 0.91 | Valence: 0.48 | Danceability: 0.66 | Acousticness: 0.1
+
+==================================================
+
+SONG ID: 4
+TITLE: Library Rain
+ARTIST: Paper Lanterns
+PRIMARY GENRE: lofi
+ADDITIONAL GENRES: Ambient Lofi, Neo-classical, Rain Moods
+PRIMARY MOOD: chill
+--------------------
+DETAILED DESCRIPTION: Atmospheric lofi track integrated with high-fidelity rain foley. The melody is sparse, utilizing soft Rhodes piano chords to create a sense of isolation and comfort.
+RAG CONTEXTUAL NOTE: Perfect for reading or relaxing during inclement weather. Despite the low energy, it maintains a moderate valence, suggesting 'cozy' rather than 'sad'.
+TECHNICAL METRICS: Tempo: 72 BPM | Energy: 0.35 | Valence: 0.6 | Danceability: 0.58 | Acousticness: 0.86
+
+==================================================
+
+SONG ID: 5
+TITLE: Gym Hero
+ARTIST: Max Pulse
+PRIMARY GENRE: pop
+ADDITIONAL GENRES: EDM, Dance-pop, Workout Music
+PRIMARY MOOD: intense
+--------------------
+DETAILED DESCRIPTION: An anthemic electronic pop song built for peak physical performance. It uses side-chained basslines and soaring vocal chops to drive rhythm and motivation.
+RAG CONTEXTUAL NOTE: Engineered for HIIT or running. The tempo is locked into a standard athletic cadence (132 BPM).
+TECHNICAL METRICS: Tempo: 132 BPM | Energy: 0.93 | Valence: 0.77 | Danceability: 0.88 | Acousticness: 0.05
+
+==================================================
+
+SONG ID: 6
+TITLE: Spacewalk Thoughts
+ARTIST: Orbit Bloom
+PRIMARY GENRE: ambient
+ADDITIONAL GENRES: Space Ambient, Drone Music, Cosmic Music
+PRIMARY MOOD: chill
+--------------------
+DETAILED DESCRIPTION: Slow-evolving ambient soundscapes with long-tail reverbs and zero percussion. It creates an auditory sense of weightlessness and vast, open space.
+RAG CONTEXTUAL NOTE: Useful for meditation or sleep. Its low danceability and low energy make it nearly static in rhythmic structure.
+TECHNICAL METRICS: Tempo: 60 BPM | Energy: 0.28 | Valence: 0.65 | Danceability: 0.41 | Acousticness: 0.92
+
+==================================================
+
+SONG ID: 7
+TITLE: Coffee Shop Stories
+ARTIST: Slow Stereo
+PRIMARY GENRE: jazz
+ADDITIONAL GENRES: Smooth Jazz, Bebop, Cool Jazz
+PRIMARY MOOD: relaxed
+--------------------
+DETAILED DESCRIPTION: Sophisticated jazz quartet recording with brushed snare drums and a walking upright bass. It mimics the natural acoustics of a small, intimate club environment.
+RAG CONTEXTUAL NOTE: Great for social gatherings or 'classy' background ambiance. High acousticness reflects the live-instrumentation recording style.
+TECHNICAL METRICS: Tempo: 90 BPM | Energy: 0.37 | Valence: 0.71 | Danceability: 0.54 | Acousticness: 0.89
+
+==================================================
+
+SONG ID: 8
+TITLE: Night Drive Loop
+ARTIST: Neon Echo
+PRIMARY GENRE: synthwave
+ADDITIONAL GENRES: Darksynth, Retrowave, Cyberpunk
+PRIMARY MOOD: moody
+--------------------
+DETAILED DESCRIPTION: Cinematic synthwave with a moody, introspective core. Features gated reverb drums and 'dark' sawtooth synths that evoke a futuristic urban nightscape.
+RAG CONTEXTUAL NOTE: Tailored for nighttime commutes or atmospheric focus. The mid-range valence suggests a complex, 'bittersweet' emotional profile.
+TECHNICAL METRICS: Tempo: 110 BPM | Energy: 0.75 | Valence: 0.49 | Danceability: 0.73 | Acousticness: 0.22
+
+==================================================
+
+SONG ID: 9
+TITLE: Focus Flow
+ARTIST: LoRoom
+PRIMARY GENRE: lofi
+ADDITIONAL GENRES: Focus Music, Instrumental Hip-Hop, Modern Minimalism
+PRIMARY MOOD: focused
+--------------------
+DETAILED DESCRIPTION: Instrumental lofi designed for extreme focus. It incorporates brown noise frequencies and a steady, non-intrusive beat to mask environmental distractions.
+RAG CONTEXTUAL NOTE: Ideal for technical reading or data analysis. It balances electronic and acoustic elements to create a neutral soundstage.
+TECHNICAL METRICS: Tempo: 80 BPM | Energy: 0.4 | Valence: 0.59 | Danceability: 0.6 | Acousticness: 0.78
+
+==================================================
+
+SONG ID: 10
+TITLE: Rooftop Lights
+ARTIST: Indigo Parade
+PRIMARY GENRE: indie pop
+ADDITIONAL GENRES: Indie Pop, Bedroom Pop, Sunshine Pop
+PRIMARY MOOD: happy
+--------------------
+DETAILED DESCRIPTION: Bright indie pop with acoustic rhythm guitars and whimsical synth leads. It has a 'live band' energy that feels communal and celebratory.
+RAG CONTEXTUAL NOTE: Perfect for summer-themed content or general mood boosting. High danceability and valence scores indicate a strong 'happy' profile.
+TECHNICAL METRICS: Tempo: 124 BPM | Energy: 0.76 | Valence: 0.81 | Danceability: 0.82 | Acousticness: 0.35
+
+==================================================
+
+SONG ID: 11
+TITLE: Beat Drop
+ARTIST: MC Flow
+PRIMARY GENRE: hip-hop
+ADDITIONAL GENRES: Old School Hip-Hop, Boom Bap, Street Rap
+PRIMARY MOOD: excited
+--------------------
+DETAILED DESCRIPTION: Boom-bap influenced hip-hop featuring a powerful kick-snare combo and soul-sampled brass sections. It carries a high-energy, 'hype' attitude.
+RAG CONTEXTUAL NOTE: Suitable for sports or energetic social scenes. The high danceability is a core feature for RAG matching.
+TECHNICAL METRICS: Tempo: 100 BPM | Energy: 0.95 | Valence: 0.85 | Danceability: 0.9 | Acousticness: 0.05
+
+==================================================
+
+SONG ID: 12
+TITLE: Old Dirt Road
+ARTIST: Dusty Boots
+PRIMARY GENRE: country
+ADDITIONAL GENRES: Americana, Folk, Classic Country
+PRIMARY MOOD: nostalgic
+--------------------
+DETAILED DESCRIPTION: Traditional acoustic country with a focus on storytelling. Features slide guitar and a steady, mid-tempo rhythm that feels grounded and familiar.
+RAG CONTEXTUAL NOTE: Nostalgic and warm. Best for relaxed afternoon listening or travel-related themes.
+TECHNICAL METRICS: Tempo: 90 BPM | Energy: 0.6 | Valence: 0.7 | Danceability: 0.6 | Acousticness: 0.8
+
+==================================================
+
+SONG ID: 13
+TITLE: Moonlight Sonata
+ARTIST: Ludwig Echo
+PRIMARY GENRE: classical
+ADDITIONAL GENRES: Classical, Romanticism, Solo Piano
+PRIMARY MOOD: peaceful
+--------------------
+DETAILED DESCRIPTION: A pure classical piano performance. It utilizes a wide dynamic range from whispers to full-bodied chords, focusing on a solemn, emotional melody.
+RAG CONTEXTUAL NOTE: High-purity acoustic data point. Best for meditation, deep reflection, or background for historical narratives.
+TECHNICAL METRICS: Tempo: 60 BPM | Energy: 0.2 | Valence: 0.5 | Danceability: 0.3 | Acousticness: 0.95
+
+==================================================
+
+SONG ID: 14
+TITLE: Neon Pulse
+ARTIST: Synth Master
+PRIMARY GENRE: electronic
+ADDITIONAL GENRES: Glitch, Future Bass, Electro-House
+PRIMARY MOOD: euphoric
+--------------------
+DETAILED DESCRIPTION: Fast-paced glitchy electronic track that simulates digital speed. It uses rapid synth arpeggios and sharp percussion transients.
+RAG CONTEXTUAL NOTE: High-tech and futuristic. Useful for coding at high speeds or fast-paced gaming.
+TECHNICAL METRICS: Tempo: 128 BPM | Energy: 0.88 | Valence: 0.9 | Danceability: 0.85 | Acousticness: 0.02
+
+==================================================
+
+SONG ID: 15
+TITLE: Island Vibes
+ARTIST: Rasta Wave
+PRIMARY GENRE: reggae
+ADDITIONAL GENRES: Acoustic Pop, Vocal Jazz, Soft Rock
+PRIMARY MOOD: upbeat
+--------------------
+DETAILED DESCRIPTION: An intimate pop ballad with a focus on vocal clarity. The instrumentation is sparse—mostly acoustic guitar and light percussion.
+RAG CONTEXTUAL NOTE: Emotional and vulnerable. The high acousticness and low energy make it a 'quiet-time' essential.
+TECHNICAL METRICS: Tempo: 95 BPM | Energy: 0.7 | Valence: 0.8 | Danceability: 0.75 | Acousticness: 0.4
+
+==================================================
+
+SONG ID: 16
+TITLE: Blue Notes
+ARTIST: Delta King
+PRIMARY GENRE: blues
+ADDITIONAL GENRES: 
+PRIMARY MOOD: melancholic
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 70 BPM | Energy: 0.4 | Valence: 0.3 | Danceability: 0.5 | Acousticness: 0.9
+
+==================================================
+
+SONG ID: 17
+TITLE: Thunder Strike
+ARTIST: Iron Rage
+PRIMARY GENRE: metal
+ADDITIONAL GENRES: 
+PRIMARY MOOD: raging
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 160 BPM | Energy: 0.98 | Valence: 0.2 | Danceability: 0.4 | Acousticness: 0.01
+
+==================================================
+
+SONG ID: 18
+TITLE: Whispering Winds
+ARTIST: Willow Tree
+PRIMARY GENRE: folk
+ADDITIONAL GENRES: 
+PRIMARY MOOD: romantic
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 85 BPM | Energy: 0.45 | Valence: 0.75 | Danceability: 0.55 | Acousticness: 0.85
+
+==================================================
+
+SONG ID: 19
+TITLE: Soulful Nights
+ARTIST: Velvet Voice
+PRIMARY GENRE: R&B
+ADDITIONAL GENRES: 
+PRIMARY MOOD: dreamy
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 105 BPM | Energy: 0.55 | Valence: 0.65 | Danceability: 0.7 | Acousticness: 0.3
+
+==================================================
+
+SONG ID: 20
+TITLE: Groove Fever
+ARTIST: Funky Lights
+PRIMARY GENRE: disco
+ADDITIONAL GENRES: 
+PRIMARY MOOD: euphoric
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 120 BPM | Energy: 0.9 | Valence: 0.88 | Danceability: 0.95 | Acousticness: 0.1
+
+==================================================
+
+SONG ID: 21
+TITLE: Not Like Us
+ARTIST: Kendrick Lamar
+PRIMARY GENRE: rap
+ADDITIONAL GENRES: 
+PRIMARY MOOD: intense
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 98 BPM | Energy: 0.88 | Valence: 0.55 | Danceability: 0.82 | Acousticness: 0.04
+
+==================================================
+
+SONG ID: 22
+TITLE: Meet the Grahams
+ARTIST: Kendrick Lamar
+PRIMARY GENRE: rap
+ADDITIONAL GENRES: 
+PRIMARY MOOD: hateful
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 85 BPM | Energy: 0.72 | Valence: 0.22 | Danceability: 0.68 | Acousticness: 0.06
+
+==================================================
+
+SONG ID: 23
+TITLE: 6:16 in LA
+ARTIST: Kendrick Lamar
+PRIMARY GENRE: rap
+ADDITIONAL GENRES: 
+PRIMARY MOOD: intense
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 92 BPM | Energy: 0.76 | Valence: 0.3 | Danceability: 0.75 | Acousticness: 0.05
+
+==================================================
+
+SONG ID: 24
+TITLE: Euphoria
+ARTIST: Kendrick Lamar
+PRIMARY GENRE: rap
+ADDITIONAL GENRES: 
+PRIMARY MOOD: intense
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 88 BPM | Energy: 0.8 | Valence: 0.28 | Danceability: 0.65 | Acousticness: 0.07
+
+==================================================
+
+SONG ID: 25
+TITLE: Yoru ga Akeru
+ARTIST: Given
+PRIMARY GENRE: J-pop
+ADDITIONAL GENRES: rock
+PRIMARY MOOD: intense
+SECONDARY MOODS: melancholy, hopeful, romantic
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 112 BPM | Energy: 0.58 | Valence: 0.45 | Danceability: 0.6 | Acousticness: 0.82
+
+==================================================
+
+SONG ID: 26
+TITLE: Fuyu no Hanashi
+ARTIST: Given
+PRIMARY GENRE: J-pop
+ADDITIONAL GENRES: rock
+PRIMARY MOOD: intense
+SECONDARY MOODS: melancholy, romantic
+--------------------
+DETAILED DESCRIPTION: N/A
+RAG CONTEXTUAL NOTE: N/A
+TECHNICAL METRICS: Tempo: 148 BPM | Energy: 0.87 | Valence: 0.72 | Danceability: 0.78 | Acousticness: 0.8
+
+==================================================

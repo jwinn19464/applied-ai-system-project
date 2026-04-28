@@ -1,0 +1,238 @@
+ENRICHED MUSIC METADATA FOR RAG RECOMMENDER
+============================================================
+Source: songs.csv + Internet Knowledge Search (April 2026)
+Note: Use the 'Context' and 'Nuance' fields for vector embedding to improve semantic search.
+
+SONG_ID: 1
+TITLE: Sunrise City
+ARTIST: Neon Echo
+GENRE: pop
+MOOD: happy
+NUANCE/CONTEXT: Inspired by 1980s synth-rock, this track uses shimmering synth lines and arena rock rhythms to capture the feeling of urban heartbreak.
+ATTRIBUTES: Energy=0.82, Tempo=118, Valence=0.84, Danceability=0.79, Acousticness=0.18
+------------------------------
+
+SONG_ID: 2
+TITLE: Midnight Coding
+ARTIST: LoRoom
+GENRE: lofi
+MOOD: chill
+NUANCE/CONTEXT: Designed as immersive work music for developers; features dark ambient textures and steady rhythms to support a deep flow state.
+ATTRIBUTES: Energy=0.42, Tempo=78, Valence=0.56, Danceability=0.62, Acousticness=0.71
+------------------------------
+
+SONG_ID: 3
+TITLE: Storm Runner
+ARTIST: Voltline
+GENRE: rock
+MOOD: intense
+NUANCE/CONTEXT: Part of the album 'Paradise 2121', heavily inspired by futuristic, dystopian worlds like those in Blade Runner 2049.
+ATTRIBUTES: Energy=0.91, Tempo=152, Valence=0.48, Danceability=0.66, Acousticness=0.1
+------------------------------
+
+SONG_ID: 4
+TITLE: Library Rain
+ARTIST: Paper Lanterns
+GENRE: lofi
+MOOD: chill
+NUANCE/CONTEXT: A functional lo-fi track that combines white noise elements (library ambience and rain) to assist with heavy study sessions.
+ATTRIBUTES: Energy=0.35, Tempo=72, Valence=0.6, Danceability=0.58, Acousticness=0.86
+------------------------------
+
+SONG_ID: 5
+TITLE: Gym Hero
+ARTIST: Max Pulse
+GENRE: pop
+MOOD: intense
+NUANCE/CONTEXT: A intense pop track by Max Pulse, featuring 0.93 energy and 132 BPM.
+ATTRIBUTES: Energy=0.93, Tempo=132, Valence=0.77, Danceability=0.88, Acousticness=0.05
+------------------------------
+
+SONG_ID: 6
+TITLE: Spacewalk Thoughts
+ARTIST: Orbit Bloom
+GENRE: ambient
+MOOD: chill
+NUANCE/CONTEXT: A chill ambient track by Orbit Bloom, featuring 0.28 energy and 60 BPM.
+ATTRIBUTES: Energy=0.28, Tempo=60, Valence=0.65, Danceability=0.41, Acousticness=0.92
+------------------------------
+
+SONG_ID: 7
+TITLE: Coffee Shop Stories
+ARTIST: Slow Stereo
+GENRE: jazz
+MOOD: relaxed
+NUANCE/CONTEXT: A relaxed jazz track by Slow Stereo, featuring 0.37 energy and 90 BPM.
+ATTRIBUTES: Energy=0.37, Tempo=90, Valence=0.71, Danceability=0.54, Acousticness=0.89
+------------------------------
+
+SONG_ID: 8
+TITLE: Night Drive Loop
+ARTIST: Neon Echo
+GENRE: synthwave
+MOOD: moody
+NUANCE/CONTEXT: A moody synthwave track by Neon Echo, featuring 0.75 energy and 110 BPM.
+ATTRIBUTES: Energy=0.75, Tempo=110, Valence=0.49, Danceability=0.73, Acousticness=0.22
+------------------------------
+
+SONG_ID: 9
+TITLE: Focus Flow
+ARTIST: LoRoom
+GENRE: lofi
+MOOD: focused
+NUANCE/CONTEXT: A focused lofi track by LoRoom, featuring 0.4 energy and 80 BPM.
+ATTRIBUTES: Energy=0.4, Tempo=80, Valence=0.59, Danceability=0.6, Acousticness=0.78
+------------------------------
+
+SONG_ID: 10
+TITLE: Rooftop Lights
+ARTIST: Indigo Parade
+GENRE: indie pop
+MOOD: happy
+NUANCE/CONTEXT: A happy indie pop track by Indigo Parade, featuring 0.76 energy and 124 BPM.
+ATTRIBUTES: Energy=0.76, Tempo=124, Valence=0.81, Danceability=0.82, Acousticness=0.35
+------------------------------
+
+SONG_ID: 11
+TITLE: Beat Drop
+ARTIST: MC Flow
+GENRE: hip-hop
+MOOD: excited
+NUANCE/CONTEXT: A excited hip-hop track by MC Flow, featuring 0.95 energy and 100 BPM.
+ATTRIBUTES: Energy=0.95, Tempo=100, Valence=0.85, Danceability=0.9, Acousticness=0.05
+------------------------------
+
+SONG_ID: 12
+TITLE: Old Dirt Road
+ARTIST: Dusty Boots
+GENRE: country
+MOOD: nostalgic
+NUANCE/CONTEXT: A nostalgic country track by Dusty Boots, featuring 0.6 energy and 90 BPM.
+ATTRIBUTES: Energy=0.6, Tempo=90, Valence=0.7, Danceability=0.6, Acousticness=0.8
+------------------------------
+
+SONG_ID: 13
+TITLE: Moonlight Sonata
+ARTIST: Ludwig Echo
+GENRE: classical
+MOOD: peaceful
+NUANCE/CONTEXT: A digital rendition of the classical masterpiece; characterized by its extreme acousticness and peaceful, low-energy profile.
+ATTRIBUTES: Energy=0.2, Tempo=60, Valence=0.5, Danceability=0.3, Acousticness=0.95
+------------------------------
+
+SONG_ID: 14
+TITLE: Neon Pulse
+ARTIST: Synth Master
+GENRE: electronic
+MOOD: euphoric
+NUANCE/CONTEXT: A euphoric electronic track by Synth Master, featuring 0.88 energy and 128 BPM.
+ATTRIBUTES: Energy=0.88, Tempo=128, Valence=0.9, Danceability=0.85, Acousticness=0.02
+------------------------------
+
+SONG_ID: 15
+TITLE: Island Vibes
+ARTIST: Rasta Wave
+GENRE: reggae
+MOOD: upbeat
+NUANCE/CONTEXT: A upbeat reggae track by Rasta Wave, featuring 0.7 energy and 95 BPM.
+ATTRIBUTES: Energy=0.7, Tempo=95, Valence=0.8, Danceability=0.75, Acousticness=0.4
+------------------------------
+
+SONG_ID: 16
+TITLE: Blue Notes
+ARTIST: Delta King
+GENRE: blues
+MOOD: melancholic
+NUANCE/CONTEXT: A melancholic blues track by Delta King, featuring 0.4 energy and 70 BPM.
+ATTRIBUTES: Energy=0.4, Tempo=70, Valence=0.3, Danceability=0.5, Acousticness=0.9
+------------------------------
+
+SONG_ID: 17
+TITLE: Thunder Strike
+ARTIST: Iron Rage
+GENRE: metal
+MOOD: raging
+NUANCE/CONTEXT: A raging metal track by Iron Rage, featuring 0.98 energy and 160 BPM.
+ATTRIBUTES: Energy=0.98, Tempo=160, Valence=0.2, Danceability=0.4, Acousticness=0.01
+------------------------------
+
+SONG_ID: 18
+TITLE: Whispering Winds
+ARTIST: Willow Tree
+GENRE: folk
+MOOD: romantic
+NUANCE/CONTEXT: A romantic folk track by Willow Tree, featuring 0.45 energy and 85 BPM.
+ATTRIBUTES: Energy=0.45, Tempo=85, Valence=0.75, Danceability=0.55, Acousticness=0.85
+------------------------------
+
+SONG_ID: 19
+TITLE: Soulful Nights
+ARTIST: Velvet Voice
+GENRE: R&B
+MOOD: dreamy
+NUANCE/CONTEXT: A dreamy R&B track by Velvet Voice, featuring 0.55 energy and 105 BPM.
+ATTRIBUTES: Energy=0.55, Tempo=105, Valence=0.65, Danceability=0.7, Acousticness=0.3
+------------------------------
+
+SONG_ID: 20
+TITLE: Groove Fever
+ARTIST: Funky Lights
+GENRE: disco
+MOOD: euphoric
+NUANCE/CONTEXT: A euphoric disco track by Funky Lights, featuring 0.9 energy and 120 BPM.
+ATTRIBUTES: Energy=0.9, Tempo=120, Valence=0.88, Danceability=0.95, Acousticness=0.1
+------------------------------
+
+SONG_ID: 21
+TITLE: Not Like Us
+ARTIST: Kendrick Lamar
+GENRE: rap
+MOOD: intense
+NUANCE/CONTEXT: A West Coast hip-hop track produced by Mustard. It features a 'hyphy' influence and samples Monk Higgins's 1968 rendition of 'I Believe to My Soul'. It is an intense diss track targeting Drake.
+ATTRIBUTES: Energy=0.88, Tempo=98, Valence=0.55, Danceability=0.82, Acousticness=0.04
+------------------------------
+
+SONG_ID: 22
+TITLE: Meet the Grahams
+ARTIST: Kendrick Lamar
+GENRE: rap
+MOOD: hateful
+NUANCE/CONTEXT: Produced by The Alchemist, this track features an eerie, piano-driven beat sampled from 'I Want To Make It' by Timothy Carpenter & Triunity. It has a haunting, unsettling atmosphere.
+ATTRIBUTES: Energy=0.72, Tempo=85, Valence=0.22, Danceability=0.68, Acousticness=0.06
+------------------------------
+
+SONG_ID: 23
+TITLE: 6:16 in LA
+ARTIST: Kendrick Lamar
+GENRE: rap
+MOOD: intense
+NUANCE/CONTEXT: Characterized by lyrics suggesting an internal breach within the OVO record label. The cover art (a black glove) symbolizes throwing down the gauntlet.
+ATTRIBUTES: Energy=0.76, Tempo=92, Valence=0.3, Danceability=0.75, Acousticness=0.05
+------------------------------
+
+SONG_ID: 24
+TITLE: Euphoria
+ARTIST: Kendrick Lamar
+GENRE: rap
+MOOD: intense
+NUANCE/CONTEXT: A six-minute track featuring three distinct beat switches. The title references the HBO drama executive-produced by Drake, and it opens with a reversed sample from 'The Wiz'.
+ATTRIBUTES: Energy=0.8, Tempo=88, Valence=0.28, Danceability=0.65, Acousticness=0.07
+------------------------------
+
+SONG_ID: 25
+TITLE: Yoru ga Akeru
+ARTIST: Given
+GENRE: J-pop
+MOOD: melancholy
+NUANCE/CONTEXT: Translated as 'Dawn', the lyrics reflect on grief and the stillness that follows loss. Part of the 'Given' anime series, focusing on emotional healing.
+ATTRIBUTES: Energy=0.58, Tempo=112, Valence=0.45, Danceability=0.6, Acousticness=0.82
+------------------------------
+
+SONG_ID: 26
+TITLE: Fuyu no Hanashi
+ARTIST: Given
+GENRE: J-pop
+MOOD: romantic
+NUANCE/CONTEXT: A deeply emotional J-pop song set in E minor. Portrays intense grief and unresolved love, featuring a climactic scream representing a release of suppressed sorrow.
+ATTRIBUTES: Energy=0.87, Tempo=148, Valence=0.72, Danceability=0.78, Acousticness=0.8
+------------------------------
